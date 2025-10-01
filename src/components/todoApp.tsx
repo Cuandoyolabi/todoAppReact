@@ -3,13 +3,13 @@ import "../styles/todoApp.css";
 import Todo from "./todo";
 
 export interface TodoInterface {
-  id: string, 
-  title: string,
-  completed: boolean
+  id: string;
+  title: string;
+  completed: boolean;
 }
 
 export type UpdateFunction = (id: string, value: string) => void;
-export type DeleteFuncion = (id: string)=> void;
+export type DeleteFuncion = (id: string) => void;
 
 export default function TodoApp() {
   const [title, setTitle] = useState("");
@@ -26,52 +26,57 @@ export default function TodoApp() {
     const newTodo = {
       id: crypto.randomUUID(),
       title: title,
-      completed: false
-    }
+      completed: false,
+    };
 
-    const temp = [... todos];
+    const temp = [...todos];
     temp.unshift(newTodo);
 
     setTodos(temp);
   }
 
-  function handleUpdate(id: string, value: string){
-    const temp = [... todos];
-    const item = temp.find(item => item.id === id);
-    if(item){
-       item.title = value;
+  function handleUpdate(id: string, value: string) {
+    const temp = [...todos];
+    const item = temp.find((item) => item.id === id);
+    if (item) {
+      item.title = value;
       setTodos(temp);
     } else {
       console.error("No se encuentra");
     }
-   
   }
 
-  function handleDelete(){
-    const temp = todos.filter(item => item.id !== item.id);
+  function handleDelete() {
+    const temp = todos.filter((item) => item.id !== item.id);
     setTodos(temp);
   }
 
   return (
     <div className="todoContainer">
       <form className="todoCreateForm" onSubmit={handleSubmit}>
-        <input
-          onChange={handleChange}
-          className="todoInput"
-          value={title}
-        ></input>
-        <button type="submit" className="buttonCreate">
-          Create todo
-        </button>
+        <div className="todoUnion">
+          <input
+            onChange={handleChange}
+            className="todoInput"
+            value={title}
+          ></input>
+          <button type="submit" className="buttonCreate">
+            Crear tarea
+          </button>
+        </div>
+
         {title}
       </form>
 
       <div className="todosContainer">
-        {
-          todos.map(item => (
-            <Todo key="{item.id}" item={item} onUpdate={handleUpdate} onDelete={handleDelete}/>
-          ))
-        }
+        {todos.map((item) => (
+          <Todo
+            key="{item.id}"
+            item={item}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
+        ))}
       </div>
     </div>
   );
