@@ -40,7 +40,7 @@ export default function Todo({item, onUpdate, onDelete}: TodoProps) {
             <p className="todoTitle">{item.title}</p>
         <div className="todoButtons">
             <button className="todoBtn" onClick={() => setIsEdit(true)}>Editar</button>
-            <button className="todoBtn" onClick={(e) => onDelete(item.id)}>Eliminar</button>
+            <button className="todoBtn" onClick={() => onDelete(item.id)}>Eliminar</button>
             </div>
         </div>
         )

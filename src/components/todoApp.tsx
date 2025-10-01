@@ -33,6 +33,7 @@ export default function TodoApp() {
     temp.unshift(newTodo);
 
     setTodos(temp);
+    setTitle("");
   }
 
   function handleUpdate(id: string, value: string) {
@@ -49,6 +50,7 @@ export default function TodoApp() {
   function handleDelete(id: string) {
     const temp = todos.filter((item) => item.id !== id);
     setTodos(temp);
+    setTitle("");
   }
 
   return (
@@ -59,13 +61,12 @@ export default function TodoApp() {
             onChange={handleChange}
             className="todoInput"
             value={title}
+            placeholder="Crea una tarea..."
           ></input>
           <button type="submit" className="buttonCreate">
             Crear tarea
           </button>
         </div>
-
-        {title}
       </form>
 
       <div className="todosContainer">
