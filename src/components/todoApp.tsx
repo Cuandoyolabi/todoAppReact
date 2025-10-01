@@ -46,8 +46,8 @@ export default function TodoApp() {
     }
   }
 
-  function handleDelete() {
-    const temp = todos.filter((item) => item.id !== item.id);
+  function handleDelete(id: string) {
+    const temp = todos.filter((item) => item.id !== id);
     setTodos(temp);
   }
 
@@ -71,7 +71,7 @@ export default function TodoApp() {
       <div className="todosContainer">
         {todos.map((item) => (
           <Todo
-            key="{item.id}"
+            key={item.id}
             item={item}
             onUpdate={handleUpdate}
             onDelete={handleDelete}
