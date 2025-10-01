@@ -8,6 +8,9 @@ export interface TodoInterface {
   completed: boolean
 }
 
+export type UpdateFunction = (id: string, value: string) => void;
+export type DeleteFuncion = (id: string)=> void;
+
 export default function TodoApp() {
   const [title, setTitle] = useState("");
   const [todos, setTodos] = useState<TodoInterface[]>([]);
@@ -32,6 +35,23 @@ export default function TodoApp() {
     setTodos(temp);
   }
 
+  function handleUpdate(id: string, value: string){
+    const temp = [... todos];
+    const item = temp.find(item => item.id === id);
+    if(item){
+       item.title = value;
+      setTodos(temp);
+    } else {
+      console.error("No se encuentra");
+    }
+   
+  }
+
+  function handleDelete(){
+    const temp = todos.filter(item => item.id !== item.id);
+    setTodos(temp);
+  }
+
   return (
     <div className="todoContainer">
       <form className="todoCreateForm" onSubmit={handleSubmit}>
@@ -49,7 +69,7 @@ export default function TodoApp() {
       <div className="todosContainer">
         {
           todos.map(item => (
-            <Todo key="{item.id}" item={item} />
+            <Todo key="{item.id}" item={item} onUpdate={handleUpdate} onDelete={handleDelete}/>
           ))
         }
       </div>
